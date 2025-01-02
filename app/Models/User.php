@@ -51,7 +51,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         // No need for 'password' => 'hashed' here, the mutator takes care of it
-        'email_verified_at' => 'datetime',
+        'dob' => 'datetime',
     ];
 
     /**
@@ -73,4 +73,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserDetails::class);
     }
+
+   
+
+
 }

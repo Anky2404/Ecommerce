@@ -875,6 +875,17 @@ form label {
     background-color: #fff;
 }
 
+.checkout .checkout-form .field select {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ddd;
+    outline: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
 .checkout .checkout-cart {
     padding: 50px;
     border: 1px solid #ddd;
@@ -1005,6 +1016,37 @@ form label {
     justify-content: space-between;
     padding-bottom: 14px;
     padding-top: 14px;
+}
+.main-address{
+    display: flex;
+}
+.address-btn{
+    display: flex;
+    justify-content: end;
+}
+#add-address{
+    margin-bottom: 25px;
+   
+   
+    
+}
+#billing-form{
+    position: relative;
+}
+#address-list ul li {
+    display: flex;
+    border-bottom: 1px solid #f7f2f2;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    padding-top: 14px;
+}
+#address-list {
+	width: 100%;
+	background-color: #e2e2e2;
+	padding: 15px;
+	border-radius: 5px;
+	box-shadow: -1px 5px 5px #ffffff7a;
+    margin-bottom: 15px;
 }
 
 .checkout .checkout-cart ul li h3 {
@@ -1176,6 +1218,18 @@ form label {
 }
 
 .login .login-form input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ddd;
+    outline: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding-top: 8px;
+}
+
+.login .login-form select {
     width: 100%;
     height: 40px;
     border: 1px solid #ddd;

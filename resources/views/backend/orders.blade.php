@@ -40,8 +40,11 @@
                                 <div class="all-btns">
                                 <a href="{{route('admin.order-items',['order_id' => base64_encode($order->id)])}}" class="view ">View Details</a>
                                  <div class="more-btns">
-                                 <a href="# " class="edit ">Comfirmed</a>
-                                 <a href="# " class="del ">Cancelled</a>
+                                    @if ($order->order_status=="Placed")
+                                     
+                                    <a href="#" onclick="confirmOrder('Confirmed', {{$order->id}})" class="edit">Confirmed</a>                
+                                    <a href="#" onclick="confirmOrder('Cancelled', {{$order->id}})" class="del">Cancelled</a>
+                                 @endif
                                </div>
                                 </div>
 
@@ -58,7 +61,38 @@
 
     </div>
 
+    <script>
+        function confirmOrder(action, orderId) {
+            // Show the confirmation dialog 
+            var message = (action === 'Confirmed') 
+                ? 'Are you sure you want to confirm this order?'
+                : 'Are you sure you want to cancel this order?';
     
+            // If the user confirms the action
+            if (confirm(message)) {
+                // Send AJAX request to update status
+                $.ajax({
+                    url: "{{ route('order.updateStatus') }}", 
+                    method: 'POST',
+                    data: {
+                        order_id: orderId,
+                        status: action,
+                         // CSRF token for security
+                        _token: "{{ csrf_token() }}" 
+                    },
+                    success: function(response) {
+                        // Success response handler
+                        alert(response.message); 
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Error response handler
+                        alert('An error occurred while updating the order status.');
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 
 </html>

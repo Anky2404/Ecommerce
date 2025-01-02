@@ -23,6 +23,7 @@
                             <th>Unit Price</th>
                             <th>Quantity</th>
                             <th>Total Amount</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -38,10 +39,14 @@
                             <td>£{{ $orderItem->unit_price }}</td>
                             <td>{{ $orderItem->quantity }}</td>
                             <td>£{{ $orderItem->total_amount }}</td>
-                            <td data-column="Twitter " class="list-btns">
-                                <a href="# " class="edit ">Confirmed</a>
-                                <a href="# " class="del ">Canceled</a>
-                            </td>
+                            <td>{{ $orderItem->status }}</td>
+                            <td data-column="Twitter" class="list-btns">
+                                @if ($orderItem->status=='Placed')
+                                <a href="#" onclick="confirmOrder('Confirmed', {{$orderItem->id}})" class="edit">Confirmed</a>                
+                                <a href="#" onclick="confirmOrder('Cancelled', {{$orderItem->id}})" class="del">Cancelled</a>
+                                @endif
+                            
+                            </td>                           
                         </tr>
                         @endforeach
                     </tbody>
@@ -52,7 +57,38 @@
         </div>
 
     </div>
-
+    <script>
+        function confirmOrder(action, itemId) {
+            // Show the confirmation dialog 
+            var message = (action === 'Confirmed') 
+                ? 'Are you sure you want to confirm this order?'
+                : 'Are you sure you want to cancel this order?';
+    
+            // If the user confirms the action
+            if (confirm(message)) {
+                // Send AJAX request to update status
+                $.ajax({
+                    url: "{{ route('order-item.updateStatus') }}", 
+                    method: 'POST',
+                    data: {
+                        item_id: itemId,
+                        status: action,
+                         // CSRF token for security
+                        _token: "{{ csrf_token() }}" 
+                    },
+                    success: function(response) {
+                        // Success response handler
+                        alert(response.message); 
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Error response handler
+                        alert('An error occurred while updating the order status.');
+                    }
+                });
+            }
+        }
+    </script>
     
 </body>
 

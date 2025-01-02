@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Basket;
+use App\Models\Discount;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -17,11 +19,14 @@ class CartController extends Controller
             $customer_id = $customer->id;
             //Get cart details
             $cart_items = Basket::where('customer_id', $customer_id)->get();
+
+            if ($cart_items->isEmpty()) {
+                return redirect()->route('user.home')->with('error', 'Cart is empty.');
+            } else {
+                //Pass the data to the view
+                return view('frontend.cart', compact('cart_items'));
+            }
         }
-
-
-        //Pass the data to the view
-        return view('frontend.cart', compact('cart_items'));
     }
 
     //Display Checkout Page
@@ -33,11 +38,19 @@ class CartController extends Controller
             //Get customer id from session
             $customer_id = $customer->id;
 
-        //Get cart details
-        $cart_items = Basket::where('customer_id', $customer_id)->get();
+            $discounts = Discount::where('status', 'Active')->get();
+            //Get cart details
+            $cart_items = Basket::where('customer_id', $customer_id)->get();
 
-        //Pass the data to the view
-        return view('frontend.checkout', compact('cart_items'));
+            //Show cutomer address
+            $addresses = Address::where('user_id', $customer_id)->get();
+
+            if ($cart_items->isEmpty()) {
+                return redirect()->route('user.home')->with('error', 'Cart is empty.');
+            } else {
+                //Pass the data to the view
+                return view('frontend.checkout', compact('cart_items', 'discounts', 'addresses'));
+            }
         }
     }
 

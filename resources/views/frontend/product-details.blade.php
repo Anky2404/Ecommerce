@@ -1,3 +1,17 @@
+@php
+    $customer_id = session('Customer')->id;
+@endphp
+@if ($errors->any())
+<script>
+    // Collect all error messages into a single string
+    var errorMessages = '';
+    @foreach ($errors->all() as $error)
+        errorMessages += '{{ $error }}\n'; 
+    @endforeach
+    
+    alert(errorMessages);
+</script>
+@endif
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,8 +56,16 @@
                            
                         </div>
                         <div class="qty-cart">
-                            <button class="btns" href="{{ route('user.cart', $product->id) }}">Add to Cart</button>
-                            <button class="btns" href="{{ route('user.cart', $product->id) }}">Buy Now</button>
+                            <form action="{{route('user.add-cart')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}" required>
+                                <input type="hidden" name="quantity" value="1" required>
+                                <input type="hidden" name="customer_id" value="{{ $customer_id }}" required>
+                                <button type="submit" class="btns"> <i class="fa-solid fa-cart-shopping"></i><span>Add to
+                                Cart</span> </button>
+
+                            </form>
+                            
                         </div>
                         <div class="accordion">
                             <div class="accordion__item">
@@ -83,8 +105,16 @@
                             </a>
 
                             <div class="add">
-                                <a class="btn" href="{{ route('user.cart', $related_product->id) }}"> <i
-                                        class="fa-solid fa-cart-shopping"></i> <span>Add to Cart</span></a>
+                                
+                                <form action="{{route('user.add-cart')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $related_product->id }}" required>
+                                    <input type="hidden" name="quantity" value="1" required>
+                                    <input type="hidden" name="customer_id" value="{{ $customer_id }}" required>
+                                    <button type="submit" class="btns"> <i class="fa-solid fa-cart-shopping"></i><span>Add to
+                                    Cart</span> </button>
+    
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\Authenticate;
+use Illuminate\Container\Attributes\Auth;
 
 Route::group(['prefix' => 'Admin'], function () {
     // Route to dashboard page
@@ -36,8 +38,7 @@ Route::group(['prefix' => 'Admin'], function () {
 
     Route::post('/EditCategory', [CategoryController::class, 'updateCategory'])->name('admin.update-category');
 
-
-
+    Route::post('/SaveAddress', [OrderController::class, 'SaveAddress'])->name('user.save-address');
 
     // Route to product list page
     Route::get('/admin/products/{cat_id?}', function ($cat_id = null) {
@@ -87,9 +88,11 @@ Route::group(['prefix' => 'Admin'], function () {
 
     Route::get('/AddDiscounts', [DiscountController::class, 'AddDiscountForm'])->name('admin.add-discount-page');
 
-    Route::post('/Discount/Store', [DiscountController::class, 'AddDiscountForm'])->name('admin.store-discount');
+    Route::post('/Discount/Store', [DiscountController::class, 'StoreDiscount'])->name('admin.store-discount');
 
     Route::get('/Update/Discounts/{id}', [DiscountController::class, 'UpdateDiscountForm'])->name('admin.edit-discount-page');
+
+    Route::post('/Update/Discounts', [DiscountController::class, 'UpdateDiscount'])->name('admin.update-discount');
 
 
 
@@ -105,7 +108,8 @@ Route::group(['prefix' => 'Admin'], function () {
 
 
 
-
+    Route::post('/orderItem/updateStatus', [OrderController::class, 'updateOrderItemStatus'])->name('order-item.updateStatus');
+    Route::post('/order/updateStatus', [OrderController::class, 'updateOrderStatus'])->name('order.updateStatus');
 
 
 
@@ -115,11 +119,11 @@ Route::group(['prefix' => 'Admin'], function () {
         return view('backend.login');
     })->name('admin.login');
 
-    Route::post('/Login', [UserController::class, 'admin_login'])->name('admin.login');
+    Route::post('/Login/Admin', [UserController::class, 'admin_login'])->name('admin.login');
     Route::get('/Register', function () {
         return view('backend.register');
     })->name('admin.register');
-    Route::post('/Register', [UserController::class, 'admin_register'])->name('admin.register');
+    Route::get('/Logout', [LoginController::class, 'AdminLogout'])->name('admin.logout');
 });
 
 
@@ -143,48 +147,51 @@ Route::get('/Shop', [RouteController::class, 'ProductPage'])->name('user.shop');
 //Route to product details page
 Route::get('/ProductDetails/{pro_id}', [RouteController::class, 'ProductDetailsPage'])->name('user.product-details');
 
-
+// Route for category filter
+Route::get('/product/filter', [ProductController::class, 'filter'])->name('category.filter');
 
 //Route to cart page
 Route::get('/Profile', [UserController::class, 'CustomerProfile'])->name('user.profile');
 
-Route::get('/Customer/Orders', [OrderController::class, 'CustomerOrders'])->name('user.orders');
+//Route to cart page
+Route::post('/Profile/Update', [UserController::class, 'UpdateCustomerProfile'])->name('user.update-profile');
 
-Route::get('/OrderDetails/{order_id}', [OrderController::class, 'CustomerOrderDetails'])->name('user.order-details');
-
-
-
-
+//Route to placed order
+Route::post('/PlaceOrder', [OrderController::class, 'PlacedOrder'])->name('user.place-order');
 
 
+Route::get('/Customer/Orders', [OrderController::class, 'CustomerOrders'])->name('user.orders')->middleware(Authenticate::class);
 
-
+Route::get('/OrderDetails/{order_id}', [OrderController::class, 'CustomerOrderDetails'])->name('user.order-details')->middleware(Authenticate::class);
 
 //Route to cart page
-Route::get('/Cart', [CartController::class, 'ShowCartList'])->name('user.cart');
+Route::get('/Cart', [CartController::class, 'ShowCartList'])->name('user.cart')->middleware(Authenticate::class);
 
 //Route to update cart
-Route::post('/Cart/Add', [CartController::class, 'AddCart'])->name('user.add-cart');
+Route::post('/Cart/Add', [CartController::class, 'AddCart'])->name('user.add-cart')->middleware(Authenticate::class);
 
 
 //Route to update cart
-Route::post('/Cart/Update', [CartController::class, 'UpdateCart'])->name('user.cart-update');
+Route::post('/Cart/Update', [CartController::class, 'UpdateCart'])->name('user.cart-update')->middleware(Authenticate::class);
 
 //Route to remove item from cart
-Route::delete('/remove-item/{id}', [CartController::class, 'RemoveItem']);
+Route::delete('/remove-item/{id}', [CartController::class, 'RemoveItem'])->middleware(Authenticate::class);
 
 
 //Route to checkout page
-Route::get('/Checkout', [CartController::class, 'CheckoutPage'])->name('user.checkout');
+Route::get('/Checkout', [CartController::class, 'CheckoutPage'])->name('user.checkout')->middleware(Authenticate::class);
 
 //Route to login page
-Route::get('/CustomerLogin', [LoginController::class, 'CustomerLoginPage'])->name('user.login-page');
+Route::get('/Login', [LoginController::class, 'CustomerLoginPage'])->name('user.login-page');
 
-Route::post('/Login', [LoginController::class, 'CustomerLogin'])->name('user.login');
+Route::post('/LoginCustomer', [LoginController::class, 'CustomerLogin'])->name('user.login');
 
+Route::post('/Sent/Query', [RouteController::class, 'SentQuery'])->name('user.sent-queries');
 
 //Route to register page
 Route::get('/CustomerRegister', [LoginController::class, 'CustomerRegisterPage'])->name('user.register-page');
 
 //Route to register page
 Route::post('/Register', [LoginController::class, 'CustomerRegister'])->name('user.register');
+
+Route::get('/Logout', [LoginController::class, 'CustomerLogout'])->name('user.logout');

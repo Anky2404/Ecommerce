@@ -38,6 +38,24 @@
                             <input type="tel" id="phone" name="phone" placeholder="Enter Phone" required>
                         </div>
                     </div>
+
+                    <div class="input-group">
+                        <div class="input-wrap">
+                            <label for="referred-by">Referred By</label>
+                            <select id="referred-by" name="referred_by" required>
+                                <option value="" disabled selected>Select Referrer</option>
+                                <option value="">No Referrence</option>
+                                @foreach ($customers as $customer)
+                                <option value="{{$customer->id}}">{{$customer->firstname.' '.$customer->lastname}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="input-wrap">
+                            <label for="referral-code">Referral Code</label>
+                            <input type="text" id="referral-code" name="referral_code" placeholder="Enter Referral Code" required>
+                        </div>
+                    </div>
+                    
                 
                     <div class="input-group">
                         <div class="input-wrap">

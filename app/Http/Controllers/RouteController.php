@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\ProductVariant;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Query;
 
 class RouteController extends Controller
 {
@@ -61,6 +62,35 @@ class RouteController extends Controller
 
         //Pass the data to the view
         return view('frontend.product-details', compact('product', 'latest_products'));
+    }
+
+    //Sent query message to the admin
+    public function SentQuery(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'contact' => 'required|string|max:15', 
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string|max:5000', 
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        else{
+            //Create a new query message
+            $query = new Query();
+            $query->sender_name = $request->name;
+            $query->sender_email = $request->email;
+            $query->sender_contact = $request->contact;
+            $query->subject = $request->subject;
+            $query->message = $request->message;
+            $query->save();
+
+            //Redirect to the home page
+            return redirect()->route('user.home')->with('success', 'Query sent successfully');
+        }
     }
 
 

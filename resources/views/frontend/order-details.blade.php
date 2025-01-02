@@ -44,8 +44,10 @@
                             <td>£{{ $orderItem->unit_price }}</td>
                             <td>{{ $orderItem->quantity }}</td>
                             <td data-column="Twitter " class="list-btns">
-                                <a href="# " class="edit ">Confirm</a>
-                                <a href="# " class="del ">Cancel</a>
+                                @if ($orderItem->status=='Placed')
+                                <a href="#" class="btns" onclick="confirmOrder('Confirmed', {{$orderItem->id}})" id="edit">Confirmed</a>                
+                                <a href="#" class="btns" style="background-color: red" onclick="confirmOrder('Cancelled', {{$orderItem->id}})" id="del">Cancelled</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -61,6 +63,39 @@
         </div>
     </section>
     @include('frontend.partials.footer')
+
+    <script>
+        function confirmOrder(action, itemId) {
+            // Show the confirmation dialog 
+            var message = (action === 'Confirmed') 
+                ? 'Are you sure you want to confirm this order?'
+                : 'Are you sure you want to cancel this order?';
+    
+            // If the user confirms the action
+            if (confirm(message)) {
+                // Send AJAX request to update status
+                $.ajax({
+                    url: "{{ route('order-item.updateStatus') }}", 
+                    method: 'POST',
+                    data: {
+                        item_id: itemId,
+                        status: action,
+                         // CSRF token for security
+                        _token: "{{ csrf_token() }}" 
+                    },
+                    success: function(response) {
+                        // Success response handler
+                        alert(response.message); 
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Error response handler
+                        alert('An error occurred while updating the order status.');
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 
 </html>

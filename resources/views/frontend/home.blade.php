@@ -1,5 +1,5 @@
 @php
-    $customer_id = 8;
+    $customer_id = session('Customer')->id;
 @endphp
 @if ($errors->any())
 <script>

@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use App\Models\Referrals;
 
 class LoginController extends Controller
 {
     //Display Customer Register page
     public function CustomerRegisterPage()
     {
+        // Retrieve Customer details
+        $customers = User::where('role_type', 'Customer')->get();
         //Redirect to register page
-        return view('frontend.register');
+        return view('frontend.register',compact('customers'));
     }
 
     //Handle Customer Register form
@@ -46,8 +50,17 @@ class LoginController extends Controller
          $user->password = md5($request->password);
          $user->save(); 
 
+         //Store referrernce details
+            if($request->referred_by!=""){
+                $referral = new Referrals();
+                $referral->referred_by = $request->referred_by;
+                $referral->referred_to =  $user->id;
+                $referral->referral_code = $request->referral_code;
+                $referral->save();
+            }
+
         //Return success response
-        return redirect()->route('user.login')->with('success', 'You have been successfully registered.');
+        return redirect()->route('user.login-page')->with('success', 'You have been successfully registered.');
 
         
     }
@@ -105,6 +118,40 @@ class LoginController extends Controller
             return back()->with('error', 'User not found');
         }
     }
+
+    public function AdminLogout()
+{
+    // Check if the logged-in an admin
+    if (Auth::check() && session('Admin')) {
+        // Log out the authenticated admin user
+        Auth::logout();
+
+        // Clear the 'Admin' session data
+        Session::forget('Admin');
+
+        // Redirect to the login page 
+        return redirect()->route('admin.login'); 
+    }
+
+   
+}
+
+//Customer logout function
+public function CustomerLogout()
+{
+    // Check if the logged-in an customer
+    if (Auth::check() && session('Customer')) {
+        // Log out the authenticated Customer user
+        Auth::logout();
+
+        // Clear the 'Customer' session data
+        Session::forget('Customer');
+
+        // Redirect to the login page 
+        return redirect()->route('user.login-page'); 
+    }
+   
+}
 
 
 

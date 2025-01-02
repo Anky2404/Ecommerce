@@ -71,35 +71,42 @@
         <div class="container-wrap">
 
             <div class="login-form" >
-                <form>
+                <form method="POST" action="{{ route('user.sent-queries') }}">
+                    @csrf
                     <h2>Send Message</h2>
+                
                     <div class="input-group">
                         <div class="input-wrap">
-                            <label for="Name">Name</label>
-                            <input type="text" placeholder="Enter Name">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter Name" required>
                         </div>
+                
                         <div class="input-wrap">
-                            <label for="Email">Email</label>
-                            <input type="text" placeholder="Enter Email">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Enter Email" required>
                         </div>
                     </div>
+                
                     <div class="input-group">
                         <div class="input-wrap">
-                            <label for="Contact">Contact</label>
-                            <input type="text" placeholder="Enter Contact">
+                            <label for="contact">Contact</label>
+                            <input type="text"  name="contact" placeholder="Enter Contact" required>
                         </div>
+                
                         <div class="input-wrap">
-                            <label for="Password">Subject</label>
-                            <input type="text" placeholder="Enter Subject">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="Enter Subject" required>
                         </div>
-                  
-                    </div>      <div class="input-wrap">
-                        <label for="Subject">Message</label>
-                       <textarea name="Subject" id="" placeholder="Enter Message"></textarea>
                     </div>
-                    <button class="btns">Send Message</button>
-                  
+                
+                    <div class="input-wrap">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Enter Message" required></textarea>
+                    </div>
+                
+                    <button type="submit" class="btns">Send Message</button>
                 </form>
+                
             </div>
         </div>
 

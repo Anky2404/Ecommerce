@@ -10,7 +10,7 @@ class OrderItem extends Model
     protected $table = 'order_items';
 
     // Define the fillable columns
-    protected $fillable = ['order_id', 'product_id', 'quantity', 'total_price'];
+    protected $fillable = ['order_id','product_id','quantity','status','unit_price','total_amount'];
 
     // Disable timestamps
     public $timestamps = false;
