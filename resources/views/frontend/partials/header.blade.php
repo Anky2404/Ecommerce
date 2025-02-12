@@ -30,7 +30,14 @@
                 <div class="dropdown">
                     <div class="user-icon">
                     <i class="fa-regular fa-user"></i>
-                    <span>Oliver Jones</span>
+                    <span>
+                        @if(session('Customer'))
+                            {{ session('Customer')->firstname . ' '.session('Customer')->lastname }}
+                        @else
+                            Guest
+                        @endif
+                    </span>
+                    
 
                     </div>
                     <div class="drop-content">
@@ -38,7 +45,14 @@
                         <li><a href="{{route('user.orders')}}">Orders</a></li>
                         <li><a href="{{route('user.profile')}}">Profile</a></li>
                         <li><a href="{{route('user.cart')}}">Cart <i class="fa-solid fa-cart-shopping"></i></a></li>
-                        <li><a href="{{route('user.login-page')}}">Logout <i class="fa-solid fa-right-to-bracket"></i></a></li>
+                        @if (!session('Customer'))
+                        <li>
+                            <a href="{{ route('user.login-page') }}">Login <i class="fa-solid fa-right-to-bracket"></i></a></li>
+                        
+                        @else
+                        <li><a href="{{route('user.logout')}}" onclick="return confirm('Are you sure you want to logout?');">Logout <i class="fa-solid fa-right-to-bracket"></i></a></li>
+                        @endif
+                        
                     </ul>
                     </div>
 

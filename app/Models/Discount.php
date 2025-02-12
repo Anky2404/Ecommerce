@@ -11,4 +11,7 @@ class Discount extends Model
         'start_date' => 'datetime',
         'end_date' => 'datetime',  
     ];
+
+    //Define the fillable columns
+    protected $fillable=['code', 'type', 'value', 'start_date', 'end_date', 'min_order_value', 'usage_limit', 'used_count', 'status', 'description',];
 }

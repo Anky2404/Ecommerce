@@ -13,14 +13,22 @@
             @include('backend.partials.nav')
             <h3>Add Discount</h3>
             <div class="game-form">
-
-                <form method="POST" action="{{ route('admin.store-discount') }}" enctype="multipart/form-data">
+                @if (session('error'))
+                <div class="alert alert-danger" id="status-message">
+                    <ul>
+                        @foreach (session('error') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+                <form method="POST" action="{{ route('admin.store-discount') }}">
                     @csrf
 
                     <div class="row">
                         <div class="input">
-                            <label for="category_name">Discount Code</label>
-                            <input type="text" name="category_name" id="category_name" placeholder="Enter Discount Code..." required>
+                            <label for="discount_code">Discount Code</label>
+                            <input type="text" name="discount_code" id="discount_code" placeholder="Enter Discount Code..." required>
                         </div>
                 
                         <div class="input">

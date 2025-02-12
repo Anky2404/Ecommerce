@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2024 at 01:35 PM
+-- Generation Time: Jan 01, 2025 at 10:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,6 +46,17 @@ CREATE TABLE `addresses` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `addresses`
+--
+
+INSERT INTO `addresses` (`id`, `user_id`, `fullname`, `email_address`, `phone_number`, `address_type`, `suburb`, `city`, `state`, `country`, `postal_code`, `is_active`, `location_type`, `landmark`, `added_at`, `updated_at`) VALUES
+(2, 7, 'John Doe', 'john.doe@gmail.com', '+44 123 456 789', 'customer_address', 'Chelsea', 'London', 'England', 'UK', 'SW1A 1AA', 1, 'Home', 'Near Buckingham Palace', '2025-01-01 07:45:03', '2025-01-01 08:13:26'),
+(3, 7, 'Jane Smith', 'jane.smith@gmail.com', '+44 987 654 321', 'customer_address', 'Oxford', 'Oxford', 'England', 'UK', 'OX1 1DP', 1, 'Home', 'Near University', '2025-01-01 07:45:03', '2025-01-01 08:15:50'),
+(4, 9, 'Robert Brown', 'robert.brown@gmail.com', '+44 555 666 777', 'customer_address', 'Greenwich', 'London', 'England', 'UK', 'SE10 9NE', 1, 'Office', 'Near O2 Arena', '2025-01-01 07:45:03', '2025-01-01 08:13:35'),
+(5, 10, 'Emily Wilson', 'emily.wilson@gmail.com', '+44 222 333 444', 'customer_address', 'Bristol', 'Bristol', 'England', 'UK', 'BS1 5TY', 1, 'Office', 'Near Cabot Circus', '2025-01-01 07:45:03', '2025-01-01 08:13:39'),
+(6, 11, 'Michael Johnson', 'michael.johnson@gmail.com', '+44 444 555 666', 'customer_address', 'Manchester', 'Manchester', 'England', 'UK', 'M1 1AA', 1, 'Others', 'Near Piccadilly Gardens', '2025-01-01 07:45:03', '2025-01-01 08:13:43');
+
 -- --------------------------------------------------------
 
 --
@@ -59,13 +70,6 @@ CREATE TABLE `baskets` (
   `quantity` int(11) NOT NULL,
   `added_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `baskets`
---
-
-INSERT INTO `baskets` (`id`, `product_id`, `customer_id`, `quantity`, `added_at`) VALUES
-(10, 37, 7, 3, '2024-12-28 12:13:23');
 
 -- --------------------------------------------------------
 
@@ -150,10 +154,10 @@ CREATE TABLE `discounts` (
 --
 
 INSERT INTO `discounts` (`id`, `code`, `type`, `value`, `start_date`, `end_date`, `min_order_value`, `usage_limit`, `used_count`, `status`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'WINTER2024', 'percentage', 15.00, '2024-12-01 00:00:00', '2024-12-31 00:00:00', 50.00, 100, 25, 'Active', '15% off on orders above £50, valid until 31st Dec 2024', '2024-12-26 10:57:44', '2024-12-29 08:16:44'),
+(1, 'WINTER2024', 'percentage', 15.00, '2024-12-01 00:00:00', '2024-12-31 00:00:00', 50.00, 100, 25, 'Active', '15% off on orders above £50, valid until 31st Dec 2024', '2024-12-26 10:57:44', '2024-12-31 01:45:15'),
 (2, 'SUMMER50', 'fixed', 50.00, '2024-06-01 00:00:00', '2024-06-30 00:00:00', 100.00, 200, 120, 'Active', 'Get £50 off on any order above £120 during June 2024', '2024-12-26 10:57:44', '2024-12-29 08:16:59'),
 (3, 'HOLIDAY10', 'percentage', 10.00, '2024-12-01 00:00:00', '2024-12-25 00:00:00', 20.00, 50, 30, 'Active', '10% off on orders above £30 for the holiday season', '2024-12-26 10:57:44', '2024-12-29 08:17:17'),
-(4, 'NEWYEAR2025', 'fixed', 100.00, '2024-12-26 00:00:00', '2025-01-05 00:00:00', 122.00, 500, 50, 'Inactive', 'Celebrate the New Year with £100 off on orders above £122', '2024-12-26 10:57:44', '2024-12-29 08:19:00'),
+(4, 'NEWYEAR2025', 'fixed', 100.00, '2024-12-26 00:00:00', '2025-01-05 00:00:00', 222.00, 500, 50, 'Active', 'Celebrate the New Year with £100 off on orders above £122', '2024-12-26 10:57:44', '2025-01-01 05:55:52'),
 (5, 'BLACKFRIDAY', 'percentage', 25.00, '2024-11-23 00:00:00', '2024-11-30 00:00:00', 75.00, 300, 275, 'Active', '25% off on all products for Black Friday week', '2024-12-26 10:57:44', '2024-12-26 10:57:44');
 
 -- --------------------------------------------------------
@@ -246,7 +250,7 @@ CREATE TABLE `loyalty_points` (
 --
 
 INSERT INTO `loyalty_points` (`id`, `customer_id`, `purchase_id`, `points`, `type`, `created_at`, `updated_at`) VALUES
-(1, 8, 1, 5, 'Earned', '2024-12-29 05:12:16', '2024-12-29 05:12:16');
+(2, 7, 6, 5, 'Earned', '2025-01-01 09:49:05', '2025-01-01 09:49:05');
 
 -- --------------------------------------------------------
 
@@ -295,6 +299,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `orders` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
+  `address_id` bigint(20) UNSIGNED NOT NULL,
   `order_status` enum('Placed','Mark In Progress','Shipped','Delivered','Canceled') NOT NULL DEFAULT 'Placed',
   `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `total_amount` decimal(10,2) NOT NULL,
@@ -306,8 +311,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `order_status`, `order_date`, `total_amount`, `discount_amount`, `net_amount`) VALUES
-(1, 8, 'Placed', '2024-12-25 18:30:00', 469.97, 10.00, 459.97);
+INSERT INTO `orders` (`id`, `user_id`, `address_id`, `order_status`, `order_date`, `total_amount`, `discount_amount`, `net_amount`) VALUES
+(6, 7, 3, 'Placed', '2025-01-01 09:49:05', 74.99, 15.00, 59.99);
 
 -- --------------------------------------------------------
 
@@ -320,6 +325,7 @@ CREATE TABLE `order_items` (
   `order_id` bigint(20) UNSIGNED NOT NULL,
   `product_id` bigint(20) UNSIGNED NOT NULL,
   `quantity` int(11) NOT NULL,
+  `status` enum('Placed','Confirmed','Delivered','Canceled') NOT NULL DEFAULT 'Placed',
   `unit_price` decimal(10,2) NOT NULL,
   `total_amount` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -328,9 +334,8 @@ CREATE TABLE `order_items` (
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `unit_price`, `total_amount`) VALUES
-(3, 1, 43, 2, 199.99, 399.98),
-(4, 1, 39, 1, 44.99, 44.99);
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `status`, `unit_price`, `total_amount`) VALUES
+(11, 6, 37, 1, 'Placed', 49.99, 49.99);
 
 -- --------------------------------------------------------
 
@@ -375,13 +380,6 @@ CREATE TABLE `payments` (
   `payment_amount` decimal(10,2) NOT NULL,
   `payment_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `payments`
---
-
-INSERT INTO `payments` (`id`, `order_id`, `payment_status`, `payment_method`, `payment_amount`, `payment_date`) VALUES
-(1, 1, 'Completed', 'Bank Transfer', 459.99, '2024-12-29 08:20:29');
 
 -- --------------------------------------------------------
 
@@ -513,7 +511,7 @@ CREATE TABLE `referrals` (
   `referred_by` bigint(20) UNSIGNED NOT NULL,
   `referred_to` bigint(20) UNSIGNED NOT NULL,
   `referral_code` varchar(255) NOT NULL,
-  `reward_earned` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `reward_earned` decimal(10,2) NOT NULL DEFAULT 5.00,
   `referred_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -526,7 +524,7 @@ INSERT INTO `referrals` (`id`, `referred_by`, `referred_to`, `referral_code`, `r
 (2, 3, 8, 'REF638961', 5.00, '2024-12-23 04:02:45'),
 (3, 4, 9, 'REF90319', 5.00, '2024-12-20 05:02:45'),
 (4, 5, 10, 'REF534713', 5.00, '2024-12-21 06:02:45'),
-(5, 6, 11, 'REF402607', 5.00, '2024-12-19 07:02:45');
+(5, 7, 11, 'REF402607', 5.00, '2024-12-19 07:02:45');
 
 -- --------------------------------------------------------
 
@@ -548,9 +546,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('aOXGTiVVSvbiM0mbLbv0clY8oTaf8Uw5L13x0O5d', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiamtHYnRMUThYRFkyTzZHT1JqSnJYcUJIdUR1THhJVXg1UjVtOEhKNiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9BZG1pbi9Mb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1735470549),
-('JldyGTJQP18by4dRL1cPiGyoLiXhEGlmI8kBymAR', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZk1qZmFwaVBqOGdFT3hGcHFNUGRVaHdMbTl2NDI3WVM1UHo2aUV3UiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6MTIzNC9Mb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1735472756),
-('povQdv1pVDWOTBLOe1bpaEEjumgcfKFmUhKSNUZR', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0', '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', 1735475555);
+('5vAwAJ6HsTO1612wy88IqlW8phwS5iGNOvOfRYNr', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0', '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', 1735725145),
+('9pxFCP8TLVZZu9vnHhrzYsidoeJj3BhtwMB69wT4', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiY3ZFM3VzOUd3Z1ZaOUZDR3lTZFJSNFFFcEU1VTFPT255SDYwQnRQUCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9DaGVja291dCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1735721052),
+('cDn8iOVAoAl7TkXgpL3Ef4i7d9cBQaC49yrMLKBH', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiT1pCT1V0azJqMlJBZk52dVlzRXNIQkhXQmpvdTc1ejFCMEpFdzlacSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9DaGVja291dCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1735711399);
 
 -- --------------------------------------------------------
 
@@ -567,7 +565,7 @@ CREATE TABLE `users` (
   `dob` date NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `role_type` enum('Admin','Customer','Staff','Seller') NOT NULL,
-  `is_verified_account` tinyint(1) NOT NULL DEFAULT 0,
+  `is_verified_account` tinyint(1) NOT NULL DEFAULT 1,
   `password` varchar(255) NOT NULL,
   `joined_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -578,18 +576,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `phone`, `dob`, `is_active`, `role_type`, `is_verified_account`, `password`, `joined_at`, `updated_at`) VALUES
-(1, 'Daniel', 'Green', 'daniel@gmail.com', '+44 7990 123456', '1980-02-18', 1, 'Admin', 0, 'e7f84ff145ced31368756c41af7fef9c', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
+(1, 'Daniel', 'Green', 'daniel@gmail.com', '+44 7990 123456', '1980-02-18', 1, 'Admin', 1, 'e7f84ff145ced31368756c41af7fef9c', '2024-12-23 02:34:07', '2024-12-31 07:26:24'),
 (2, 'John', 'Smith', 'john@gmail.com', '+44 7911 123456', '1985-06-15', 0, 'Staff', 0, '6d40e095b7f43848dc76ec017592da29', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
 (3, 'Emily', 'Johnson', 'emily@gmail.com', '+44 7911 654321', '1990-11-02', 0, 'Staff', 0, 'f6244d2fc24ec05bedfbf7a84a42ddd4', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
 (4, 'Michael', 'Williams', 'michael@gmail.com', '+44 7911 234567', '1982-03-25', 0, 'Staff', 0, 'fdec10f5e0fc93e0dadc8c53b9802623', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
 (5, 'Sarah', 'Brown', 'sarah@gmail.com', '+44 7911 876543', '1987-12-05', 0, 'Staff', 0, '80b801451242d70d4311435fc6abae44', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
 (6, 'David', 'Taylor', 'david@gmail.com', '+44 7911 987654', '1993-09-18', 0, 'Staff', 0, '889211b122daa7f9f917d3d3b3475514', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
-(7, 'Oliver', 'Jones', 'oliver@gmail.com', '+44 7420 123456', '1995-01-22', 1, 'Customer', 1, '29dfa8f7d1eae182e8e0cedb69271e58', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
-(8, 'Sophia', 'Davies', 'sophia@gmail.com', '+44 7420 654321', '1989-04-10', 0, 'Customer', 0, '4d4cc5ce3071ce7dbb117a1e5503a3be', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
-(9, 'James', 'Miller', 'james@gmail.com', '+44 7420 234567', '1992-07-05', 0, 'Customer', 0, '2ec9246a5c996d9a0004b47ec3dc6a81', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
-(10, 'Isla', 'Wilson', 'isla@gmail.com', '+44 7420 876543', '1996-02-15', 0, 'Customer', 0, 'f440b71f0d28f65b1ffd25c7ce4f0bd0', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
-(11, 'Henry', 'Moore', 'henry@gmail.com', '+44 7420 987654', '1990-09-30', 0, 'Customer', 0, 'dce28b80dfad7c6d4138e34e43c85c6a', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
-(12, 'Charlotte', 'Taylor', 'charlotte@gmail.com', '+44 7733 123456', '1985-06-25', 0, 'Seller', 0, '793c43edeb46ace591b721034962fece', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
+(7, 'Oliver', 'Jones', 'oliver@gmail.com', '+44 7420 123456', '1995-01-22', 1, 'Customer', 1, '29dfa8f7d1eae182e8e0cedb69271e58', '2024-12-23 02:34:07', '2024-12-31 09:52:00'),
+(8, 'Sophia', 'Davies', 'sophia@gmail.com', '+44 7420 654321', '1989-04-10', 1, 'Customer', 1, '4d4cc5ce3071ce7dbb117a1e5503a3be', '2024-12-23 02:34:07', '2025-01-01 07:41:55'),
+(9, 'James', 'Miller', 'james@gmail.com', '+44 7420 234567', '1992-07-05', 1, 'Customer', 1, '2ec9246a5c996d9a0004b47ec3dc6a81', '2024-12-23 02:34:07', '2025-01-01 07:41:57'),
+(10, 'Isla', 'Wilson', 'isla@gmail.com', '+44 7420 876543', '1996-02-15', 1, 'Customer', 1, 'f440b71f0d28f65b1ffd25c7ce4f0bd0', '2024-12-23 02:34:07', '2025-01-01 07:42:00'),
+(11, 'Henry', 'Moore', 'henry@gmail.com', '+44 7420 987654', '1990-09-30', 1, 'Customer', 1, 'dce28b80dfad7c6d4138e34e43c85c6a', '2024-12-23 02:34:07', '2025-01-01 07:42:02'),
+(12, 'Charlotte', 'Taylor', 'charlotte@gmail.com', '+44 7733 123456', '1985-06-25', 1, 'Seller', 0, '793c43edeb46ace591b721034962fece', '2024-12-23 02:34:07', '2025-01-01 07:41:47'),
 (13, 'Ethan', 'Anderson', 'ethan@gmail.com', '+44 7733 654321', '1990-08-14', 0, 'Seller', 0, 'f78741b29d51f6fe6de6be317e56851a', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
 (14, 'Amelia', 'Thomas', 'amelia@gmail.com', '+44 7733 234567', '1993-01-18', 0, 'Seller', 0, 'd3ce548c6d31467b651f4bc8deafb884', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
 (15, 'Jack', 'Jackson', 'jack@gmail.com', '+44 7733 876543', '1987-11-23', 0, 'Seller', 0, '7000dcb4458a658cd95a871e25c473c9', '2024-12-23 02:34:07', '2024-12-28 12:05:21'),
@@ -619,7 +617,7 @@ INSERT INTO `user_details` (`id`, `user_id`, `gender`, `profile_img`) VALUES
 (4, 4, 'Male', 'michael.jpg'),
 (5, 5, 'Female', 'sarah.jpg'),
 (6, 6, 'Male', 'david.jpg'),
-(7, 7, 'Male', 'oliver.jpg'),
+(7, 7, 'Female', '1735638956.jpg'),
 (8, 8, 'Female', 'sophia.jpg'),
 (9, 9, 'Male', 'james.jpg'),
 (10, 10, 'Female', 'isla.jpg'),
@@ -732,7 +730,8 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `orders_user_id_index` (`user_id`);
+  ADD KEY `orders_user_id_index` (`user_id`),
+  ADD KEY `fk1` (`address_id`);
 
 --
 -- Indexes for table `order_items`
@@ -839,13 +838,13 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `baskets`
 --
 ALTER TABLE `baskets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -857,7 +856,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -881,7 +880,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `loyalty_points`
 --
 ALTER TABLE `loyalty_points`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -893,13 +892,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `order_returns`
@@ -935,19 +934,19 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `queries`
 --
 ALTER TABLE `queries`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `referrals`
 --
 ALTER TABLE `referrals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `user_details`
@@ -995,6 +994,7 @@ ALTER TABLE `loyalty_points`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
+  ADD CONSTRAINT `fk1` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
   ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --

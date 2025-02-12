@@ -13,10 +13,17 @@
             @include('backend.partials.nav')
             <h3>Edit Discount</h3>
             <div class="game-form">
-
-                <form method="POST" action="{{ route('admin.update-category') }}" enctype="multipart/form-data">
+                @if (session('error'))
+                <div class="alert alert-danger" id="status-message">
+                    <ul>
+                        @foreach (session('error') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+                <form method="POST" action="{{ route('admin.update-discount') }}" >
                     @csrf
-                
                     <div class="row">
                         <div class="input">
                             <label for="discount_code">Discount Code</label>
@@ -28,7 +35,7 @@
                             <select name="discount_type" id="discount_type" required>
                                 <option value="" disabled >Select Discount Type</option>
                                 <option value="percentage" @if ($discount->type == 'percentage') selected @endif>Percentage</option>
-                                <option value="flat" @if ($discount->type == 'fixed') selected @endif>Fixed</option>
+                                <option value="fixed" @if ($discount->type == 'fixed') selected @endif>Fixed</option>
                             </select>
                         </div>
                 
@@ -56,9 +63,9 @@
                         <div class="input">
                             <label for="status">Status</label>
                             <select name="status" id="status" required>
-                                <option value="active" @if ($discount->status == 'Active') selected @endif>Active</option>
-                                <option value="expired"  @if ($discount->status == 'Expired') selected @endif>Expired</option>
-                                <option value="inactive"  @if ($discount->status == 'Inactive') selected @endif>Inactive</option>
+                                <option value="Active" @if ($discount->status == 'Active') selected @endif>Active</option>
+                                <option value="Expired"  @if ($discount->status == 'Expired') selected @endif>Expired</option>
+                                <option value="Inactive"  @if ($discount->status == 'Inactive') selected @endif>Inactive</option>
                             </select>
                         </div>
                 
@@ -68,7 +75,7 @@
                         </div>
                     </div>
                 
-                    <input type="hidden" name="category_id" value="{{ $discount->id }}">
+                    <input type="hidden" name="discount_id" value="{{ $discount->id }}">
                 
                     <div class="input">
                         <label for="category_description">Description</label>

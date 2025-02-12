@@ -31,6 +31,22 @@ class ProductController extends Controller
         }
     }
 
+    public function filter(Request $request)
+    {
+        $categoryId = $request->input('category_id');  
+
+        // Filter products by category_id
+        if ($categoryId) {
+            $products = Product::where('category_id', $categoryId)->get();
+        } else {
+            // Show all products when no category is selected
+            $products = Product::all();  
+        }
+
+        // Return the filtered product list view (partial view)
+        return view('frontend.partials.product-list', compact('products'));  
+    }
+
     // Add product form
     public function AddProductForm()
     {

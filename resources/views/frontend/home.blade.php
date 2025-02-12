@@ -1,6 +1,3 @@
-@php
-    $customer_id = 8;
-@endphp
 @if ($errors->any())
 <script>
     // Collect all error messages into a single string
@@ -64,7 +61,6 @@
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}" required>
                                     <input type="hidden" name="quantity" value="1" required>
-                                    <input type="hidden" name="customer_id" value="{{ $customer_id }}" required>
                                     <button type="submit"> <i class="fa-solid fa-cart-shopping"></i><span>Add to
                                     Cart</span> </button>
 
@@ -111,7 +107,6 @@
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}" required>
                                     <input type="hidden" name="quantity" value="1" required>
-                                    <input type="hidden" name="customer_id" value="{{ $customer_id }}" required>
                                     <button type="submit"> <i class="fa-solid fa-cart-shopping"></i><span> Add to
                                     Cart</span></button>
                                 </form>
@@ -155,15 +150,14 @@
 
 
                             <div class="add">
-                                <form action="user.add-cart" method="POST">
+                                <form action="{{route('user.add-cart')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}" required>
                                     <input type="hidden" name="quantity" value="1" required>
-                                    <input type="hidden" name="customer_id" value="{{ $customer_id }}" required>
-                                    <button type="submit"> <i class="fa-solid fa-cart-shopping"></i> <span>Add to
+                                    <button type="submit"> <i class="fa-solid fa-cart-shopping"></i><span> Add to
                                     Cart</span></button>
-
                                 </form>
+
                             </div>
                         </div>
                     </div>

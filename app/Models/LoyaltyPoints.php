@@ -10,7 +10,11 @@ class LoyaltyPoints extends Model
         //Define the table name
         protected $table = 'loyalty_points';
 
+        //Definet the fillable columns
+        protected $fillable = ['customer_id', 'purchase_id', 'points', 'type',];  
 
+        //Disable timestamps
+        public $timestamps = false;
 
 
      // Relationship with the customer table
