@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+@php
+    $customer_id = session('Customer')->id;
+@endphp
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
 @if ($errors->any())
 <script>
     // Collect all error messages into a single string
@@ -62,6 +68,10 @@
                                     @csrf
                                     <input type="hidden" name="product_id" value="{{ $product->id }}" required>
                                     <input type="hidden" name="quantity" value="1" required>
+<<<<<<< HEAD
+=======
+                                    <input type="hidden" name="customer_id" value="{{ $customer_id }}" required>
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
                                     <button type="submit"><i class="fa-solid fa-cart-shopping"></i> <span>Add to Cart</span></button>
                                 </form>
                             </div>

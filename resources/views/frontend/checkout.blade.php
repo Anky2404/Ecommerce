@@ -235,8 +235,12 @@
                 success: function(response) {
                     // Handle the response is successful
                     alert('Order confirmed with Address ID: ' + selectedAddressId);
+<<<<<<< HEAD
                      // Redirect to the user orders page
                      window.location.href = '{{route('user.orders')}}';
+=======
+                    console.log(response);  
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
                 },
                 error: function(xhr, status, error) {
                     // Handle error if the request fails

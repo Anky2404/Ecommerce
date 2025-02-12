@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
 @if ($products->isEmpty())
     <p>No products found for this category.</p>
 @else

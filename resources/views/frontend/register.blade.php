@@ -45,9 +45,15 @@
                             <select id="referred-by" name="referred_by" required>
                                 <option value="" disabled selected>Select Referrer</option>
                                 <option value="">No Referrence</option>
+<<<<<<< HEAD
                                 {{-- @foreach ($customers as $customer) --}}
                                 {{-- <option value="{{$customer->id}}">{{$customer->firstname.' '.$customer->lastname}}</option> --}}
                                 {{-- @endforeach --}}
+=======
+                                @foreach ($customers as $customer)
+                                <option value="{{$customer->id}}">{{$customer->firstname.' '.$customer->lastname}}</option>
+                                @endforeach
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
                             </select>
                         </div>
                         <div class="input-wrap">

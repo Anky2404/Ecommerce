@@ -46,7 +46,11 @@
                             <td data-column="Twitter " class="list-btns">
                                 @if ($orderItem->status=='Placed')
                                 <a href="#" class="btns" onclick="confirmOrder('Confirmed', {{$orderItem->id}})" id="edit">Confirmed</a>                
+<<<<<<< HEAD
                                 <a href="#" class="btns" style="background-color: red" onclick="confirmOrder('Canceled', {{$orderItem->id}})" id="del">Cancelled</a>
+=======
+                                <a href="#" class="btns" style="background-color: red" onclick="confirmOrder('Cancelled', {{$orderItem->id}})" id="del">Cancelled</a>
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
                                 @endif
                             </td>
                         </tr>

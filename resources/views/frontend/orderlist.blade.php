@@ -57,7 +57,11 @@
                                                 href="{{ route('user.order-details', ['order_id' => base64_encode($order->id)]) }}">Order  Details</a>
                                             
                                                 @if ($order->order_status=='Placed')   
+<<<<<<< HEAD
                                             <button onclick="confirmOrder('Canceled', {{ $order->id }})"
+=======
+                                            <button onclick="confirmOrder('Cancelled', {{ $order->id }})"
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
                                                 class="btns" id="del">Cancel</button>
                                                 @endif
 

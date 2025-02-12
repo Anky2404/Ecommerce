@@ -27,7 +27,11 @@ class OrderController extends Controller
             $customer_id = $customer->id;
             $cart_items = Basket::where('customer_id', $customer_id)->get();
 
+<<<<<<< HEAD
 
+=======
+           
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
 
             // Create a new order
             $order = new Order();
@@ -57,6 +61,7 @@ class OrderController extends Controller
                 $item->delete();
             }
 
+<<<<<<< HEAD
             // Create a new loyalty point
             $loyaltyPoint = new LoyaltyPoints();
             $loyaltyPoint->customer_id = $customer_id;
@@ -64,6 +69,15 @@ class OrderController extends Controller
             $loyaltyPoint->points = 5;
             $loyaltyPoint->type = 'Earned';
             $loyaltyPoint->save();
+=======
+           // Create a new loyalty point
+              $loyaltyPoint = new LoyaltyPoints();
+                $loyaltyPoint->customer_id = $customer_id;
+                $loyaltyPoint->purchase_id = $order_id;
+                $loyaltyPoint->points = 5;
+                $loyaltyPoint->type = 'Earned';
+                $loyaltyPoint->save();
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
 
 
 
@@ -132,7 +146,11 @@ class OrderController extends Controller
         // Validate the incoming request
         $request->validate([
             'item_id' => 'required|exists:order_items,id',
+<<<<<<< HEAD
             'status' => 'required|in:Confirmed,Canceled',
+=======
+            'status' => 'required|in:Confirmed,Cancelled',
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
         ]);
 
         // Find the order item  by ID
@@ -161,14 +179,22 @@ class OrderController extends Controller
         // Validate the incoming request
         $request->validate([
             'order_id' => 'required|exists:orders,id',
+<<<<<<< HEAD
             'status' => 'required|in:Confirmed,Canceled',
+=======
+            'status' => 'required|in:Confirmed,Cancelled',
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
         ]);
 
         // Find the order by ID
         $order = Order::find($request->order_id);
 
         // Update the order status 
+<<<<<<< HEAD
         $order->order_status = $request->status;
+=======
+        $order->order_status = 'Mark In Progress';
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
         $order->save();
 
         // Find all related order items by order_id

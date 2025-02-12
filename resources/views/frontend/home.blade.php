@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+@php
+    $customer_id = session('Customer')->id;
+@endphp
+>>>>>>> beb821e223467b1f4c47b9db76bd5f665a13a144
 @if ($errors->any())
 <script>
     // Collect all error messages into a single string
